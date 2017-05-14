@@ -50,9 +50,24 @@
   </form>
   -->
 
-  <ion-list inset>
-    <ion-item *ngFor="let item of listItems; let i = index" (click)="onCheckItem(i)">
-      <h2>{{ item.name }} ({{ item.id }})</h2>
-    </ion-item>
+  <ion-list>
+      <ion-item-sliding *ngFor="let item of listItems; let i = index">
+          <ion-item (click)="onCheckItem(i)">
+              <h2>{{ item.name }} ({{ item.id }})</h2>
+          </ion-item>
+          <ion-item-options side="right">
+              <button ion-button color="light">
+                  <ion-icon name="star-outline"></ion-icon>
+              </button>
+          </ion-item-options>
+          <!--
+          <ion-item-options side="left">
+              <button ion-button color="primary">
+                  <ion-icon name="mail"></ion-icon>
+                  Email
+              </button>
+          </ion-item-options>
+          -->
+      </ion-item-sliding>
   </ion-list>
 </ion-content>

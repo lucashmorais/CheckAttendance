@@ -6,7 +6,7 @@
             <ion-icon name="menu"></ion-icon>
         </button>
     </ion-buttons>
-    <ion-title>Signup</ion-title>
+    <ion-title>Cadastro de Aluno</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,7 +16,7 @@
     <form #f="ngForm" (ngSubmit)="onSignup(f)">
         <ion-list>
             <ion-item>
-                <ion-label fixed>Mail</ion-label>
+                <ion-label fixed>NUSP</ion-label>
                 <ion-input 
                     type="email" 
                     ngModel 
@@ -24,7 +24,7 @@
                     required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label fixed>Password</ion-label>
+                <ion-label fixed>Senha</ion-label>
                 <ion-input 
                     type="password" 
                     ngModel 
@@ -35,5 +35,6 @@
         </ion-list>
         <button ion-button block type="submit" [disabled]="!f.valid">Signup</button>
     </form>
+    <p align="justify">Para cadastrar-se como professor, favor requisitar o auxílio de um docente já com acesso ao sistema.</p>
 
 </ion-content>

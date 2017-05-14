@@ -6,7 +6,7 @@
             <ion-icon name="menu"></ion-icon>
         </button>
     </ion-buttons>
-    <ion-title>Signin</ion-title>
+    <ion-title>Login</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,7 +16,7 @@
     <form #f="ngForm" (ngSubmit)="onSignin(f)">
         <ion-list>
             <ion-item>
-                <ion-label fixed>Mail</ion-label>
+                <ion-label fixed>NUSP</ion-label>
                 <ion-input 
                     type="email" 
                     ngModel 
@@ -24,7 +24,7 @@
                     required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label fixed>Password</ion-label>
+                <ion-label fixed>Senha</ion-label>
                 <ion-input 
                     type="password" 
                     ngModel 
@@ -32,7 +32,7 @@
                     required></ion-input>
             </ion-item>
         </ion-list>
-        <button ion-button block type="submit" [disabled]="!f.valid">Signin</button>
+        <button ion-button block type="submit" [disabled]="!f.valid">Entrar</button>
     </form>
 
 </ion-content>

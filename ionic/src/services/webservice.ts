@@ -3,17 +3,28 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class WebService {
-  constructor(private http: Http) {}
+    NUSP = 123456;
 
-      listSeminars() {
-	  return this.http
-	    .get('http://207.38.82.139:8001/seminar')
-		.map
-		(
-		    (response: Response) =>
-		    {
-			return response.json();
-		    }
-		);
-      }
+    constructor(private http: Http) {}
+
+    listSeminars() {
+        return this.http
+        .get('http://207.38.82.139:8001/seminar')
+        .map
+        (
+            (response: Response) =>
+            {
+                return response.json();
+            }
+        );
+    }
+
+    isProfessor() {
+        return true;
+    }
+
+    userID() {
+        return this.NUSP;
+    }
+
 }

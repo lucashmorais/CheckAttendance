@@ -7,57 +7,74 @@ import firebase from 'firebase';
 import { TabsPage } from "../pages/tabs/tabs";
 import { SigninPage } from "../pages/signin/signin";
 import { SignupPage } from "../pages/signup/signup";
+import { WebService } from "../services/webservice";
 
 @Component({
-  templateUrl: 'app.html'
+    templateUrl: 'app.html'
 })
 export class MyApp {
-  isAuthenticated = false;
+    isAuthenticated = false;
 
-  tabsPage = TabsPage;
-  signinPage = SigninPage;
-  signupPage = SignupPage;
+    tabsPage = TabsPage;
+    signinPage = SigninPage;
+    signupPage = SignupPage;
+    userID = 123456;
 
-  rootPage: any = this.tabsPage;
-  @ViewChild('nav') nav: NavController;
+    rootPage: any = this.tabsPage;
+    @ViewChild('nav') nav: NavController;
 
-  constructor(platform: Platform, private menuCtrl: MenuController, private authService: AuthService) {
-    firebase.initializeApp
-    ({
-        apiKey: "AIzaSyCNUczHXC0NtHjEUsOVpJrNWJqGNPLdHDk",
-        authDomain: "ionic2-recipebook-80089.firebaseapp.com"
-    });
+    constructor(platform: Platform,
+        private menuCtrl: MenuController,
+        private authService: AuthService,
+        private wservice: WebService) {
 
-    firebase.auth().onAuthStateChanged
-    (   user =>
-        {
-            if (user) {
-                this.isAuthenticated = true;
-                this.rootPage = this.tabsPage;
+        firebase.initializeApp
+        ({
+            apiKey: "AIzaSyCNUczHXC0NtHjEUsOVpJrNWJqGNPLdHDk",
+            authDomain: "ionic2-recipebook-80089.firebaseapp.com"
+        });
+
+        firebase.auth().onAuthStateChanged
+        (   user =>
+            {
+                if (user) {
+                    this.isAuthenticated = true;
+                    this.rootPage = this.tabsPage;
+                }
+                else {
+                    this.isAuthenticated = false;
+                    this.rootPage = this.signinPage;
+                }
             }
-            else {
-                this.isAuthenticated = false;
-                this.rootPage = this.signinPage;
-            }
-        }
-    );
+        );
 
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      Splashscreen.hide();
-    });
-  }
+        platform.ready().then(() => {
+            // Okay, so the platform is ready and our plugins are available.
+            // Here you can do any higher level native things you might need.
+            StatusBar.styleDefault();
+            Splashscreen.hide();
+        });
+    }
 
-  onLoad(page: any) {
-    this.nav.setRoot(page);
-    this.menuCtrl.close();
-  }
+    onLoad(page: any) {
+        this.nav.setRoot(page);
+        this.menuCtrl.close();
+    }
 
-  onLogout() {
-    this.authService.logout();
-    this.menuCtrl.close();
-    this.nav.setRoot(this.tabsPage);
-  }
+    onLogout() {
+        this.authService.logout();
+        this.menuCtrl.close();
+        this.nav.setRoot(this.tabsPage);
+    }
+
+    displayName() {
+        return "" + this.wservice.userID();
+    }
+
+    displayUserKind() {
+        if (this.wservice.isProfessor())
+            return "professor";
+        else
+            return "aluno";
+    }
 }
