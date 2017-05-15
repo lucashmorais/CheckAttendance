@@ -15,43 +15,46 @@ import { SignupPage } from "../pages/signup/signup";
 import { AuthService } from "../services/auth";
 import { SLOptionsPage } from "../pages/shopping-list/sl-options/sl-options";
 import { WebService } from "../services/webservice";
+import { SeminarPage } from "../pages/seminar/seminar";
 
 @NgModule({
-  declarations: [
-    MyApp,
-    EditRecipePage,
-    RecipePage,
-    RecipesPage,
-    ShoppingListPage,
-    TabsPage,
-    SigninPage,
-    SignupPage,
-    SLOptionsPage
-  ],
-  imports: [
-    IonicModule.forRoot(MyApp),
-    BrowserModule,
-    HttpModule
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    EditRecipePage,
-    RecipePage,
-    RecipesPage,
-    ShoppingListPage,
-    TabsPage,
-    SigninPage,
-    SignupPage,
-    SLOptionsPage
-  ],
-  providers: [
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ShoppingListService,
-    RecipesService,
-    AuthService,
-    WebService
-  ]
+    declarations: [
+        MyApp,
+        EditRecipePage,
+        RecipePage,
+        RecipesPage,
+        ShoppingListPage,
+        TabsPage,
+        SigninPage,
+        SignupPage,
+        SeminarPage,
+        SLOptionsPage
+    ],
+    imports: [
+        IonicModule.forRoot(MyApp),
+        BrowserModule,
+        HttpModule
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        EditRecipePage,
+        RecipePage,
+        RecipesPage,
+        ShoppingListPage,
+        TabsPage,
+        SigninPage,
+        SignupPage,
+        SeminarPage,
+        SLOptionsPage
+    ],
+    providers: [
+        {provide: ErrorHandler, useClass: IonicErrorHandler},
+        ShoppingListService,
+        RecipesService,
+        AuthService,
+        WebService
+    ]
 })
 export class AppModule {
 }

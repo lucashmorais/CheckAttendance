@@ -8,6 +8,7 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { SigninPage } from "../pages/signin/signin";
 import { SignupPage } from "../pages/signup/signup";
 import { WebService } from "../services/webservice";
+import { SeminarPage } from "../pages/seminar/seminar";
 
 @Component({
     templateUrl: 'app.html'
@@ -21,6 +22,7 @@ export class MyApp {
     userID = 123456;
 
     rootPage: any = this.tabsPage;
+    seminar = SeminarPage;
     @ViewChild('nav') nav: NavController;
 
     constructor(platform: Platform,
