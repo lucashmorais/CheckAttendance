@@ -44,12 +44,20 @@
         <ion-toolbar>
             <ion-grid>
                 <ion-row align-items-center>
-                    <ion-col>
-                        <h6>{{displayName()}}<br>({{displayUserKind()}})</h6>
-                    </ion-col>
-                    <ion-col>
-                        <button ion-button small outline>Trocar senha</button>
-                    </ion-col>
+                        <div *ngIf="userIsSignedIn(); then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock>
+                            <ion-col>
+                                <h6>{{displayName()}}<br>({{displayUserKind()}})</h6>
+                            </ion-col>
+                            <ion-col>
+                                <button ion-button small outline>Trocar senha</button>
+                            </ion-col>
+                        </ng-template>
+                        <ng-template #elseBlock>
+                            <ion-col>
+                                <h6>Usuário não logado</h6>
+                            </ion-col>
+                        </ng-template>
                 </ion-row>
             </ion-grid>
         </ion-toolbar>

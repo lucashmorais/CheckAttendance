@@ -20,11 +20,15 @@ export class WebService {
     }
 
     isProfessor() {
-        return true;
+        return false;
     }
 
     userID() {
         return this.NUSP;
+    }
+
+    userIsSignedIn() {
+        return this.NUSP != -1;
     }
 
 }

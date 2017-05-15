@@ -77,4 +77,8 @@ export class MyApp {
         else
             return "aluno";
     }
+
+    userIsSignedIn() {
+        return this.wservice.userIsSignedIn();
+    }
 }
