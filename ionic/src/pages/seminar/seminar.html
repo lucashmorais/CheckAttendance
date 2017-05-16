@@ -18,13 +18,13 @@
             <ion-item>
                 <ion-label>Nome:</ion-label>
                 <p style="text-align: left" item-content class="icontent">
-                    {{name}}
+                    {{seminar_info.name}}
                 </p>
             </ion-item>
             <ion-item>
                 <ion-label>Palestrante:</ion-label>
                 <p style="text-align: left" item-content class="icontent">
-                    {{lecturer}}
+                    {{seminar_info.lecturer}}
                 </p>
             </ion-item>
             <ion-grid no-padding>
@@ -33,7 +33,7 @@
                         <ion-item>
                             <ion-label>Horário:</ion-label>
                             <p style="text-align: left" item-content class="icontent">
-                                {{time_hour}}h{{time_min}}{{time_min == 0 ? "0" : ""}}
+                                {{seminar_info.time_hour}}h{{seminar_info.time_min}}{{seminar_info.time_min == 0 ? "0" : ""}}
                             </p>
                         </ion-item>
                     </ion-col>
@@ -41,7 +41,7 @@
                         <ion-item>
                             <ion-label>Local:</ion-label>
                             <p style="text-align: left" item-content class="icontent">
-                                {{place}}
+                                {{seminar_info.place}}
                             </p>
                         </ion-item>
                     </ion-col>

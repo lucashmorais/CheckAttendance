@@ -51,23 +51,19 @@
   -->
 
   <ion-list>
-      <ion-item-sliding *ngFor="let item of listItems; let i = index">
-          <ion-item (click)="onCheckItem(i)">
+      <ion-item-sliding *ngFor="let item of this.seminarInfoListCopy; let i = index">
+          <ion-item (click)="onCheckItem(item)">
               <h2>{{ item.name }} ({{ item.id }})</h2>
           </ion-item>
           <ion-item-options side="right">
-              <button ion-button color="light">
+              <button *ngIf="!isSeminarInFavoritesByIndex(i)" icon-only ion-button color="primary-light" (click)="addToFavorites(i)">
                   <ion-icon name="star-outline"></ion-icon>
               </button>
-          </ion-item-options>
-          <!--
-          <ion-item-options side="left">
-              <button ion-button color="primary">
-                  <ion-icon name="mail"></ion-icon>
-                  Email
+              <button *ngIf="isSeminarInFavoritesByIndex(i)" icon-left ion-button color="secondary" (click)="removeFromFavorites(i)">
+                  <ion-icon name="star-outline"></ion-icon>
+                  Desfavoritar
               </button>
           </ion-item-options>
-          -->
       </ion-item-sliding>
   </ion-list>
 </ion-content>

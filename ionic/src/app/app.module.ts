@@ -16,6 +16,7 @@ import { AuthService } from "../services/auth";
 import { SLOptionsPage } from "../pages/shopping-list/sl-options/sl-options";
 import { WebService } from "../services/webservice";
 import { SeminarPage } from "../pages/seminar/seminar";
+import { FavoritesPage } from "../pages/favorites/favorites";
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import { SeminarPage } from "../pages/seminar/seminar";
         SigninPage,
         SignupPage,
         SeminarPage,
+        FavoritesPage,
         SLOptionsPage
     ],
     imports: [
@@ -46,6 +48,7 @@ import { SeminarPage } from "../pages/seminar/seminar";
         SigninPage,
         SignupPage,
         SeminarPage,
+        FavoritesPage,
         SLOptionsPage
     ],
     providers: [

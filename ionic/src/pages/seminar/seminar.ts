@@ -1,15 +1,22 @@
 import { Component } from "@angular/core";
+import { SeminarInfo } from "../../models/seminar_info";
+import { NavController, NavParams } from "ionic-angular";
+import { OnInit } from "@angular/core";
 
 @Component({
-  selector: 'seminar',
-  templateUrl: 'seminar.html'
+    selector: 'seminar',
+    templateUrl: 'seminar.html'
 })
-
-export class SeminarPage {
+export class SeminarPage implements OnInit {
+    //private seminar_info = new SeminarInfo("Seminário legal", 14, "Someone of Somewhere", 19, 0, "IME-USP");
+    private seminar_info: SeminarInfo;
     attendees = ['Albert', 'Philip'];
-    name = "Seminário legal";
-    lecturer = "Someone of Somewhere"
-    time_hour = 19;
-    time_min = 0;
-    place = "IME-USP";
+
+    constructor(public navCtrl: NavController,
+        public navParams: NavParams) {
+    }
+
+    ngOnInit() {
+        this.seminar_info = this.navParams.get('seminar_info');
+    }
 }

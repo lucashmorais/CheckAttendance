@@ -2,78 +2,69 @@ import { PopoverController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { NgForm } from "@angular/forms";
 
-import { ShoppingListService } from "../../services/shopping-list";
 import { AuthService } from "../../services/auth";
-import { SLOptionsPage } from "./sl-options/sl-options";
 import { WebService } from "../../services/webservice";
+import { ToastController } from "ionic-angular/components/toast/toast-controller";
+import { NavController } from "ionic-angular/navigation/nav-controller";
+import { SeminarPage } from "../seminar/seminar";
+import { SeminarInfo } from "../../models/seminar_info";
 
 @Component({
-  selector: 'page-shopping-list',
-  templateUrl: 'shopping-list.html'
+    selector: 'page-shopping-list',
+    templateUrl: 'shopping-list.html'
 })
 export class ShoppingListPage {
-  listItems: any[];
+    constructor(private navCtrl: NavController,
+        private popoverCtrl: PopoverController,
+        private toastCtrl: ToastController,
+        private authService: AuthService,
+        private wservice: WebService) {}
 
-    constructor(private slService: ShoppingListService,
-                private popoverCtrl: PopoverController,
-                private authService: AuthService,
-		private wservice: WebService) {}
+    public seminarInfoListCopy;
 
-  ionViewWillEnter() {
-    this.loadItems();
-  }
+    ionViewWillEnter() {
+        this.seminarInfoListCopy = this.wservice.getSeminarsInfoListFromServer();
+    }
 
-  onAddItem(form: NgForm) {
-    this.slService.addItem(form.value.ingredientName, form.value.amount);
-    form.reset();
-    this.loadItems();
-  }
+    onAddItem(form: NgForm) {
+        form.reset();
+    }
 
-  onCheckItem(index: number) {
-    this.slService.removeItem(index);
-    this.loadItems();
-  }
+    onCheckItem(seminarInfo: SeminarInfo) {
+        this.navCtrl.push(SeminarPage, {seminar_info: seminarInfo});
+    }
 
-  onShowOptions(mouseEvent: MouseEvent) {
-    const popover = this.popoverCtrl.create(SLOptionsPage);
-    popover.present({ev: mouseEvent});
-    popover.onDidDismiss
-    (
-        data =>
-        {
-            if (data != null) {
-                if (data.action == 'load') {
-                }
-                else {
-                    this.authService.getActiveUser().getToken()
-                        .then
-                        (
-                            (token: string) =>
-                            {
-                                this.slService.storeList(token)
-                                    .subscribe
-                                    (
-                                        () => console.log("Successfully updated the DB!"),
-                                        error => console.log(error)
-                                    );
-                            }
-                        )
-                }
-            }
-        }
-    );
-  }
+    getServerIndexFromLocalIndex(local_seminar_index: number) {
+        return this.seminarInfoListCopy[local_seminar_index].id;
+    }
 
-  private loadItems() {
-    this.wservice.listSeminars()
-      .subscribe
-      (
-	  (data) =>
-	  {
-	      this.listItems = data.data;
-	      console.log(this.listItems);
-	  },
-	  error => console.log(error)
-      );
-  }
+    addToFavorites(local_seminar_index: number) {
+        this.wservice.addToFavoritesByIndex(this.getServerIndexFromLocalIndex(local_seminar_index));
+        this.seminarInfoListCopy[local_seminar_index].favorite = true;
+
+        var toastMessageConfirmingAddition = this.toastCtrl.create
+        ({
+            message: "Seminário favoritado!",
+            duration: 2000,
+            position: "bottom"
+        });
+        toastMessageConfirmingAddition.present();
+    }
+
+    removeFromFavorites(local_seminar_index: number) {
+        this.seminarInfoListCopy[local_seminar_index].favorite = false;
+        this.wservice.removeFromFavoritesByIndex(this.getServerIndexFromLocalIndex(local_seminar_index));
+
+        var toastMessageConfirmingAddition = this.toastCtrl.create
+        ({
+            message: "Seminário desfavoritado!",
+            duration: 2000,
+            position: "bottom"
+        });
+        toastMessageConfirmingAddition.present();
+    }
+
+    isSeminarInFavoritesByIndex(local_seminar_index: number) {
+        return this.wservice.isInFavorites(this.getServerIndexFromLocalIndex(local_seminar_index));
+    }
 }

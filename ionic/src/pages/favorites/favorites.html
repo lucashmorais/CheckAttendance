@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons start>
+            <button ion-button icon-only menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Favoritos</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-list>
+        <ng-container *ngFor="let item of favoritesListCopy; let i = index">
+            <ion-item-sliding *ngIf="wservice.isInFavorites(item.id)">
+                    <ion-item (click)="onCheckItem(i)">
+                        <h2>{{ item.name }}</h2>
+                    </ion-item>
+                    <ion-item-options side="right">
+                        <button icon-left ion-button color="light" (click)="removeFromFavorites(item.id)">
+                            <ion-icon name="trash"></ion-icon>
+                            Desfavoritar
+                        </button>
+                    </ion-item-options>
+            </ion-item-sliding>
+        </ng-container>
+    </ion-list>
+
+</ion-content>

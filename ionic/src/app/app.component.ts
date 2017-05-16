@@ -8,7 +8,7 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { SigninPage } from "../pages/signin/signin";
 import { SignupPage } from "../pages/signup/signup";
 import { WebService } from "../services/webservice";
-import { SeminarPage } from "../pages/seminar/seminar";
+import { FavoritesPage } from "../pages/favorites/favorites";
 
 @Component({
     templateUrl: 'app.html'
@@ -22,7 +22,7 @@ export class MyApp {
     userID = 123456;
 
     rootPage: any = this.tabsPage;
-    seminar = SeminarPage;
+
     @ViewChild('nav') nav: NavController;
 
     constructor(platform: Platform,
@@ -59,6 +59,7 @@ export class MyApp {
     }
 
     onLoad(page: any) {
+        //this.nav.setRoot(FavoritesPage, {seminar_info: new SeminarInfo("Seminário legal", 14, "Someone of Somewhere", 19, 0, "IME-USP")})
         this.nav.setRoot(page);
         this.menuCtrl.close();
     }
