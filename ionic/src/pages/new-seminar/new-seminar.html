@@ -1,0 +1,84 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons start>
+            <button ion-button icon-only menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Novo Seminário</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <form #f="ngForm" (ngSubmit)="onAddItem(f)">
+        <ion-list>
+            <ion-item>
+                <ion-label fixed>Título</ion-label>
+                <ion-input
+                          type="text"
+                          name="seminarName"
+                          placeholder="Grafos Aleatórios"
+                          ngModel
+                          required>
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed>Palestrante</ion-label>
+                <ion-input
+                          type="text"
+                          name="seminarLecturer"
+                          placeholder="João da Silva"
+                          ngModel
+                          required>
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed>Local</ion-label>
+                <ion-input
+                          type="text"
+                          name="seminarPlace"
+                          placeholder="IME-USP"
+                          ngModel
+                          required>
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed>Data</ion-label>
+                <ion-datetime
+                          name=seminarDate
+                          name=seminarDate
+                          placeholder="01 Jan 2017"
+                          displayFormat="DD MMM YYYY"
+                          required
+                          ngModel>
+                </ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed>Horário</ion-label>
+                <ion-datetime
+                          name=seminarHour
+                          placeholder="1:00 PM"
+                          displayFormat="h:mm A"
+                          pickerFormat="h mm A"
+                          required
+                          ngModel>
+                </ion-datetime>
+            </ion-item>
+        </ion-list>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <button
+                         ion-button
+                         type="submit"
+                         block
+                         [disabled]="!f.valid">Cadastrar Seminário
+                    </button>
+                </ion-col>
+                        <button ion-button (click)="this.navCtrl.pop()">
+                            Cancelar
+                        </button>
+                <ion-col></ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

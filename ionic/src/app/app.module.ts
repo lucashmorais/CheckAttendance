@@ -17,6 +17,7 @@ import { SLOptionsPage } from "../pages/shopping-list/sl-options/sl-options";
 import { WebService } from "../services/webservice";
 import { SeminarPage } from "../pages/seminar/seminar";
 import { FavoritesPage } from "../pages/favorites/favorites";
+import { NewSeminarPage } from "../pages/new-seminar/new-seminar";
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { FavoritesPage } from "../pages/favorites/favorites";
         SignupPage,
         SeminarPage,
         FavoritesPage,
+        NewSeminarPage,
         SLOptionsPage
     ],
     imports: [
@@ -49,6 +51,7 @@ import { FavoritesPage } from "../pages/favorites/favorites";
         SignupPage,
         SeminarPage,
         FavoritesPage,
+        NewSeminarPage,
         SLOptionsPage
     ],
     providers: [

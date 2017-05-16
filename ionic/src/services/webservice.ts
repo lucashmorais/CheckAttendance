@@ -52,7 +52,7 @@ export class WebService {
     }
 
     isProfessor() {
-        return false;
+        return true;
     }
 
     userID() {
