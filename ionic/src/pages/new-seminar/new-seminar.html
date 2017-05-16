@@ -75,9 +75,11 @@
                     </button>
                 </ion-col>
                 <ion-col>
-                        <button ion-button (click)="this.navCtrl.pop()">
-                            Cancelar
-                        </button>
+                    <button
+                        ion-button
+                        (click)="f.reset()"
+                        block>Limpar
+                    </button>
                 </ion-col>
             </ion-row>
         </ion-grid>

@@ -5,6 +5,7 @@ import { RecipesPage } from "../recipes/recipes";
 import { WebService } from "../../services/webservice";
 import { FavoritesPage } from "../favorites/favorites";
 import { NavController } from "ionic-angular";
+import { NewSeminarPage } from "../new-seminar/new-seminar";
 
 @Component({
     selector: 'page-tabs',
@@ -16,4 +17,5 @@ export class TabsPage {
     slPage = ShoppingListPage;
     recipesPage = RecipesPage;
     favoritesPage = FavoritesPage;
+    newSeminarPage = NewSeminarPage;
 }
