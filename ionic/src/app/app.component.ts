@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController, MenuController } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
 import { AuthService } from "../services/auth";
 import firebase from 'firebase';
 
@@ -13,7 +14,8 @@ import { NewProfessorPage } from "../pages/new-professor/new-professor";
 import { EditAccountPage } from "../pages/edit-account/edit-account";
 
 @Component({
-    templateUrl: 'app.html'
+    templateUrl: 'app.html',
+    providers: [StatusBar, SplashScreen]
 })
 export class MyApp {
     isAuthenticated = false;
@@ -32,7 +34,9 @@ export class MyApp {
     constructor(platform: Platform,
         private menuCtrl: MenuController,
         private authService: AuthService,
-        private wservice: WebService) {
+        private wservice: WebService,
+        private statusbar: StatusBar,
+        private splashscreen: SplashScreen) {
 
         firebase.initializeApp
         ({
