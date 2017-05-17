@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from "../../services/auth";
 import { LoadingController, AlertController } from "ionic-angular";
+import { WebService } from "../../services/webservice";
 
 @Component({
-  selector: 'page-signup',
-  templateUrl: 'signup.html',
+    selector: 'page-signup',
+    templateUrl: 'signup.html',
 })
 export class SignupPage {
 
-    constructor(private authService: AuthService,
-                private loadingCtrl: LoadingController,
-                private alertCtrl: AlertController) {}
+    constructor(private wservice: WebService,
+        private loadingCtrl: LoadingController,
+        private alertCtrl: AlertController) {}
 
     onSignup(form: NgForm) {
         const loading = this.loadingCtrl.create
@@ -21,7 +21,10 @@ export class SignupPage {
 
         loading.present();
 
-        this.authService.signup(form.value.email, form.value.password)
+        this.wservice.signUpWithNUSPNameAndPass(form.value.nusp, form.value.name, form.value.pass);
+
+        loading.dismiss();
+        /*
             .then(data => 
             {
                 loading.dismiss();
@@ -38,6 +41,7 @@ export class SignupPage {
                 });
                 alert.present();
             });
+         */
     }
 
 }

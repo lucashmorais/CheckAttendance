@@ -16,11 +16,19 @@
     <form #f="ngForm" (ngSubmit)="onSignup(f)">
         <ion-list>
             <ion-item>
+                <ion-label fixed>Nome</ion-label>
+                <ion-input 
+                          type="string" 
+                          ngModel 
+                          name="name" 
+                          required></ion-input>
+            </ion-item>
+            <ion-item>
                 <ion-label fixed>NUSP</ion-label>
                 <ion-input 
-                          type="email" 
+                          type="number" 
                           ngModel 
-                          name="email" 
+                          name="nusp" 
                           required></ion-input>
             </ion-item>
             <ion-item>
@@ -28,7 +36,7 @@
                 <ion-input 
                           type="password" 
                           ngModel 
-                          name="password" 
+                          name="pass" 
                           required
                           [minlength]="6"></ion-input>
             </ion-item>
@@ -36,13 +44,13 @@
                 <ion-label fixed>C. Senha</ion-label>
                 <ion-input
                           type="password"
-                          name="passwordConf"
+                          name="passConf"
                           ngModel
                           required>
                 </ion-input>
             </ion-item>
         </ion-list>
-        <button ion-button block type="submit" [disabled]="!f.valid || f.value.password != f.value.passwordConf">Signup</button>
+        <button ion-button block type="submit" [disabled]="!f.valid || f.value.pass != f.value.passConf">Cadastrar</button>
     </form>
     <p align="justify">Para cadastrar-se como professor, favor requisitar o auxílio de um docente já com acesso ao sistema.</p>
 

@@ -1,10 +1,11 @@
-import { Http, Response } from "@angular/http";
+import { Http, Response, Headers } from "@angular/http";
 import { Injectable } from "@angular/core";
 import { SeminarInfo } from "../models/seminar_info";
+import 'rxjs/add/operator/map'
 
 @Injectable()
 export class WebService {
-    NUSP = 123456;
+    private NUSP = 123456;
     private listFavoriteIDs = [];
     rawSeminarList = [];
     seminarInfoList = [];
@@ -83,5 +84,28 @@ export class WebService {
 
     isInFavorites(server_seminar_index: number) {
         return (this.isSeminarFavorite[server_seminar_index] == true);
+    }
+
+    createFormRequest(obj) {
+        var str = [];
+        for(var p in obj)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+    }
+
+    signUpWithNUSPNameAndPass(nusp: number, name: string, pass: string) {
+        console.log("[signUpWithNUSPNameAndPass]: Used parameters: " + nusp + ", " + name + " and " + pass);
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        let body = this.createFormRequest({nusp: nusp, name: name, pass: pass});
+        console.log(body);
+
+        return this.http.post('http://207.38.82.139:8001/student/add', body, {headers: headers})
+            .map(res => res.json())
+            .subscribe(data => {
+                console.log(data);
+            });
     }
 }
