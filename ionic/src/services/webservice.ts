@@ -57,6 +57,8 @@ export class WebService {
             content: 'Atualizando lista de seminários...'
         });
 
+        var seminarFetchSubject = new Subject();
+
         loading.present();
 
         this.listSeminars()
@@ -65,15 +67,17 @@ export class WebService {
             (data) => {
                 this.rawSeminarList = data.data;
                 this.seminarInfoList = this.seminarInfoListFromRawSeminarList(data.data);
+                seminarFetchSubject.next(this.seminarInfoList);
                 loading.dismiss();
             },
             error => {
                 console.log(error);
+                seminarFetchSubject.next([]);
                 loading.dismiss();
             }
         );
 
-        return this.seminarInfoList;
+        return seminarFetchSubject;
     }
 
     isProfessor() {

@@ -22,7 +22,11 @@ export class ShoppingListPage {
     public seminarInfoListCopy;
 
     ionViewWillEnter() {
-        this.seminarInfoListCopy = this.wservice.getSeminarsInfoListFromServer();
+        this.wservice.getSeminarsInfoListFromServer()
+            .toPromise()
+            .then(data => {
+                this.seminarInfoListCopy = data;
+            });
     }
 
     onAddItem(form: NgForm) {

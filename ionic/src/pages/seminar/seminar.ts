@@ -20,9 +20,9 @@ export class SeminarPage implements OnInit {
         public navParams: NavParams) {
     }
 
-    presentPopover(ev) {
-        let popover = this.popoverCtrl.create(ConfirmationPopoverPage);
-        popover.present({ev: ev});
+    presentPopover() {
+        let popover = this.popoverCtrl.create(ConfirmationPopoverPage, {server_seminar_index: this.seminar_info.id});
+        popover.present();
     }
 
     ngOnInit() {
