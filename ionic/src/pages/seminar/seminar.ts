@@ -28,4 +28,12 @@ export class SeminarPage implements OnInit {
     ngOnInit() {
         this.seminar_info = this.navParams.get('seminar_info');
     }
+
+    onRemoveSeminar() {
+        this.wservice.removeSeminarInfoFromServer(this.seminar_info);
+        //TODO: Make sure the page is only popped after the html request was resolved
+        //      and more updated seminar list information could have been fetched from
+        //      the server
+        this.navCtrl.pop();
+    }
 }

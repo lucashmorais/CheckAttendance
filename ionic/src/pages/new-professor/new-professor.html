@@ -9,13 +9,13 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
-    <form #f="ngForm" (ngSubmit)="onAddItem(f)">
+    <form #f="ngForm" (ngSubmit)="onAddProfessor(f)">
         <ion-list>
             <ion-item>
                 <ion-label fixed>Nome</ion-label>
                 <ion-input
                           type="text"
-                          name="professorName"
+                          name="name"
                           placeholder="Albert Einstein"
                           ngModel
                           required>
@@ -25,7 +25,7 @@
                 <ion-label fixed>NUSP</ion-label>
                 <ion-input
                           type="number"
-                          name="professorNUSP"
+                          name="nusp"
                           placeholder="12345678"
                           ngModel
                           required>
@@ -35,7 +35,7 @@
                 <ion-label fixed>Senha</ion-label>
                 <ion-input
                           type="password"
-                          name="professorPassword"
+                          name="pass"
                           [minlength]="6"
                           ngModel
                           required>
@@ -45,7 +45,7 @@
                 <ion-label fixed>C. Senha</ion-label>
                 <ion-input
                           type="password"
-                          name="professorPasswordConf"
+                          name="passConf"
                           ngModel
                           required>
                 </ion-input>
@@ -58,7 +58,7 @@
                          ion-button
                          type="submit"
                          block
-                         [disabled]="!f.valid || f.value.professorPassword != f.value.professorPasswordConf">Cadastrar Professor
+                         [disabled]="!f.valid || f.value.pass != f.value.passConf">Cadastrar Professor
                     </button>
                 </ion-col>
                 <ion-col>

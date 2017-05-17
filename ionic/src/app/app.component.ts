@@ -11,7 +11,6 @@ import { WebService } from "../services/webservice";
 import { NewSeminarPage } from "../pages/new-seminar/new-seminar";
 import { NewProfessorPage } from "../pages/new-professor/new-professor";
 import { EditAccountPage } from "../pages/edit-account/edit-account";
-import { Subject } from "rxjs/Subject";
 
 @Component({
     templateUrl: 'app.html'
@@ -25,7 +24,6 @@ export class MyApp {
     newSeminarPage = NewSeminarPage;
     newProfessorPage = NewProfessorPage;
     editAccountPage = EditAccountPage;
-    userID = 123456;
 
     rootPage: any = this.signinPage;
 
@@ -46,7 +44,7 @@ export class MyApp {
             .subscribe
         (   nusp =>
             {
-                if (nusp != -1) {
+                if (nusp > -1) {
                     this.isAuthenticated = true;
                     this.rootPage = this.tabsPage;
                 }
@@ -58,15 +56,12 @@ export class MyApp {
         );
 
         platform.ready().then(() => {
-            // Okay, so the platform is ready and our plugins are available.
-            // Here you can do any higher level native things you might need.
             StatusBar.styleDefault();
             Splashscreen.hide();
         });
     }
 
     onLoad(page: any) {
-        //this.nav.setRoot(FavoritesPage, {seminar_info: new SeminarInfo("Seminário legal", 14, "Someone of Somewhere", 19, 0, "IME-USP")})
         this.nav.setRoot(page);
         this.menuCtrl.close();
     }

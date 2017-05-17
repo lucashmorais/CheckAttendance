@@ -9,6 +9,8 @@ import 'rxjs/add/operator/map'
 export class WebService {
     private NUSP = 123456;
     private listFavoriteIDs = [];
+    public lastSignupErrorMessage;
+    public lastSeminarAddErrorMessage;
     public authChangeSubject;
     userKind = -1;
     rawSeminarList = [];
@@ -40,6 +42,14 @@ export class WebService {
         return rawList.map(
             element => {return new SeminarInfo(element.name, element.id, "Jenivaldo da Patagônia", 19, 0, "IME-USP")}
         );
+    }
+
+    getLastSignupErrorMessage() {
+        return this.lastSignupErrorMessage;
+    }
+
+    getLastSeminarAddErrorMessage() {
+        return this.getLastSeminarAddErrorMessage;
     }
 
     getSeminarsInfoListFromServer() {
@@ -108,7 +118,7 @@ export class WebService {
         return str.join("&");
     }
 
-    signUpWithNUSPNameAndPass(nusp: number, name: string, pass: string) {
+    signUpWithNUSPNameAndPass(nusp: number, name: string, pass: string, as_professor: boolean) {
         console.log("[signUpWithNUSPNameAndPass]: Used parameters: " + nusp + ", " + name + " and " + pass);
 
         let headers = new Headers();
@@ -117,11 +127,20 @@ export class WebService {
         let body = this.createFormRequest({nusp: nusp, name: name, pass: pass});
         console.log(body);
 
-        return this.http.post('http://207.38.82.139:8001/student/add', body, {headers: headers})
+        var signupSubject = new Subject();
+
+        this.http.post('http://207.38.82.139:8001/' + (as_professor ? "teacher" : "student") + '/add', body, {headers: headers})
             .map(res => res.json())
             .subscribe(data => {
                 console.log(data);
+                let wasItSuccessfull = data.success && (data.message === undefined);
+                signupSubject.next(wasItSuccessfull);
+
+                if (!wasItSuccessfull)
+                    this.lastSignupErrorMessage = data.message;
             });
+
+        return signupSubject;
     }
 
     changeAccountNameAndPass(name: string, pass: string) {
@@ -145,6 +164,56 @@ export class WebService {
         return editionSubject;
     }
 
+    addSeminarInfoToServer(seminarInfo: SeminarInfo) {
+        var extraAttributesJSONStr = JSON.stringify({
+            name: seminarInfo.name, 
+            rest: JSON.stringify({
+                lecturer: seminarInfo.lecturer,
+                time_hour: seminarInfo.time_hour,
+                time_min: seminarInfo.time_min,
+                place: seminarInfo.place
+            })
+        });
+
+        console.log("[changeAccountNameAndPass]: Used parameters: " + extraAttributesJSONStr);
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        let body = this.createFormRequest({name: seminarInfo.name, data: extraAttributesJSONStr});
+        console.log(body);
+
+        let seminarAddSubject = new Subject();
+
+        this.http.post('http://207.38.82.139:8001/seminar/add', body, {headers: headers})
+            .map(res => res.json())
+            .subscribe(data => {
+                console.log(data);
+                seminarAddSubject.next(data.success);
+            });
+
+        return seminarAddSubject;
+    }
+
+    removeSeminarInfoFromServer(seminarInfo: SeminarInfo) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        let body = this.createFormRequest({id: seminarInfo.id});
+        console.log(body);
+
+        let seminarRemoveSubject = new Subject();
+
+        this.http.post('http://207.38.82.139:8001/seminar/delete', body, {headers: headers})
+            .map(res => res.json())
+            .subscribe(data => {
+                console.log(data);
+                seminarRemoveSubject.next(data.success);
+            });
+
+        return seminarRemoveSubject;
+    }
+
     signInWithNUSPAndPass(nusp: number, pass: string) {
         console.log("[signInWithNUSPAndPass]: Used parameters: " + nusp + ", " + name + " and " + pass);
 
@@ -157,8 +226,7 @@ export class WebService {
         var studentLoginAttemptStatus = false;
         var professorLoginAttemptStatus = false;
 
-        const loading = this.loadingCtrl.create
-        ({
+        const loading = this.loadingCtrl.create({
             content: 'Aguarde enquanto efetuamos o login...'
         });
 

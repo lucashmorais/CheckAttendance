@@ -15,7 +15,7 @@
                 <ion-label fixed>Título</ion-label>
                 <ion-input
                           type="text"
-                          name="seminarName"
+                          name="name"
                           placeholder="Grafos Aleatórios"
                           ngModel
                           required>
@@ -25,7 +25,7 @@
                 <ion-label fixed>Palestrante</ion-label>
                 <ion-input
                           type="text"
-                          name="seminarLecturer"
+                          name="lecturer"
                           placeholder="João da Silva"
                           ngModel
                           required>
@@ -35,7 +35,7 @@
                 <ion-label fixed>Local</ion-label>
                 <ion-input
                           type="text"
-                          name="seminarPlace"
+                          name="place"
                           placeholder="IME-USP"
                           ngModel
                           required>
@@ -44,8 +44,7 @@
             <ion-item>
                 <ion-label fixed>Data</ion-label>
                 <ion-datetime
-                          name=seminarDate
-                          name=seminarDate
+                          name=date
                           placeholder="01 Jan 2017"
                           displayFormat="DD MMM YYYY"
                           required
@@ -55,7 +54,7 @@
             <ion-item>
                 <ion-label fixed>Horário</ion-label>
                 <ion-datetime
-                          name=seminarHour
+                          name=time
                           placeholder="1:00 PM"
                           displayFormat="h:mm A"
                           pickerFormat="h mm A"
