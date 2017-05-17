@@ -1,6 +1,6 @@
 <ion-tabs>
-  <ion-tab [root]="slPage" tabIcon="school" tabTitle="Lista de Seminários"></ion-tab>
-  <ion-tab [root]="favoritesPage" tabIcon="star" tabTitle="Favoritos"></ion-tab>
-  <ion-tab *ngIf="!wservice.isProfessor()" [root]="recipesPage" tabIcon="checkbox" tabTitle="Marcar Presença"></ion-tab>
-  <ion-tab *ngIf="wservice.isProfessor()" [root]="newSeminarPage" tabIcon="add-circle" tabTitle="Novo Seminário"></ion-tab>
+    <ion-tab [root]="slPage" tabIcon="school" tabTitle="Lista de Seminários"></ion-tab>
+    <ion-tab [root]="favoritesPage" tabIcon="star" tabTitle="Favoritos"></ion-tab>
+    <ion-tab *ngIf="!wservice.isProfessor()" [root]="confirmationPage" tabIcon="checkbox" tabTitle="Marcar Presença"></ion-tab>
+    <ion-tab *ngIf="wservice.isProfessor()" [root]="newSeminarPage" tabIcon="add-circle" tabTitle="Novo Seminário"></ion-tab>
 </ion-tabs>

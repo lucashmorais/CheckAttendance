@@ -5,12 +5,13 @@
                 <ion-icon name="menu"></ion-icon>
             </button>
         </ion-buttons>
-        <ion-title>Novo Professor</ion-title>
+        <ion-title>Editar Dados</ion-title>
     </ion-navbar>
 </ion-header>
 <ion-content>
     <form #f="ngForm" (ngSubmit)="onAddItem(f)">
         <ion-list>
+            <!--
             <ion-item>
                 <ion-label fixed>NUSP</ion-label>
                 <ion-input
@@ -21,8 +22,9 @@
                           required>
                 </ion-input>
             </ion-item>
+            -->
             <ion-item>
-                <ion-label fixed>Senha</ion-label>
+                <ion-label fixed>Nova senha</ion-label>
                 <ion-input
                           type="password"
                           name="professorPassword"
@@ -48,7 +50,7 @@
                          ion-button
                          type="submit"
                          block
-                         [disabled]="!f.valid || f.value.professorPassword != f.value.professorPasswordConf">Cadastrar Professor
+                         [disabled]="!f.valid || f.value.professorPassword != f.value.professorPasswordConf">Salvar
                     </button>
                 </ion-col>
                 <ion-col>

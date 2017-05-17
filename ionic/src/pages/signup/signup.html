@@ -1,13 +1,13 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-buttons start>
-        <button ion-button icon-only menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-    </ion-buttons>
-    <ion-title>Cadastro de Aluno</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-buttons start>
+            <button ion-button icon-only menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Cadastro de Aluno</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
@@ -18,22 +18,31 @@
             <ion-item>
                 <ion-label fixed>NUSP</ion-label>
                 <ion-input 
-                    type="email" 
-                    ngModel 
-                    name="email" 
-                    required></ion-input>
+                          type="email" 
+                          ngModel 
+                          name="email" 
+                          required></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label fixed>Senha</ion-label>
                 <ion-input 
-                    type="password" 
-                    ngModel 
-                    name="password" 
-                    required
-                    [minlength]="6"></ion-input>
+                          type="password" 
+                          ngModel 
+                          name="password" 
+                          required
+                          [minlength]="6"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed>C. Senha</ion-label>
+                <ion-input
+                          type="password"
+                          name="passwordConf"
+                          ngModel
+                          required>
+                </ion-input>
             </ion-item>
         </ion-list>
-        <button ion-button block type="submit" [disabled]="!f.valid">Signup</button>
+        <button ion-button block type="submit" [disabled]="!f.valid || f.value.password != f.value.passwordConf">Signup</button>
     </form>
     <p align="justify">Para cadastrar-se como professor, favor requisitar o auxílio de um docente já com acesso ao sistema.</p>
 

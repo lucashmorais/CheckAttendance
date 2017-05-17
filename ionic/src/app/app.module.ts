@@ -19,6 +19,8 @@ import { SeminarPage } from "../pages/seminar/seminar";
 import { FavoritesPage } from "../pages/favorites/favorites";
 import { NewSeminarPage } from "../pages/new-seminar/new-seminar";
 import { NewProfessorPage } from "../pages/new-professor/new-professor";
+import { ConfirmationPage } from "../pages/confirmation/confirmation";
+import { EditAccountPage } from "../pages/edit-account/edit-account";
 
 @NgModule({
     declarations: [
@@ -34,6 +36,8 @@ import { NewProfessorPage } from "../pages/new-professor/new-professor";
         FavoritesPage,
         NewSeminarPage,
         NewProfessorPage,
+        ConfirmationPage,
+        EditAccountPage,
         SLOptionsPage
     ],
     imports: [
@@ -55,6 +59,8 @@ import { NewProfessorPage } from "../pages/new-professor/new-professor";
         FavoritesPage,
         NewSeminarPage,
         NewProfessorPage,
+        ConfirmationPage,
+        EditAccountPage,
         SLOptionsPage
     ],
     providers: [

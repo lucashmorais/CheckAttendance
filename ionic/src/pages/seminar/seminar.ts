@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { SeminarInfo } from "../../models/seminar_info";
 import { NavController, NavParams } from "ionic-angular";
 import { OnInit } from "@angular/core";
+import { WebService } from "../../services/webservice";
 
 @Component({
     selector: 'seminar',
@@ -13,6 +14,7 @@ export class SeminarPage implements OnInit {
     attendees = ['Albert', 'Philip'];
 
     constructor(public navCtrl: NavController,
+        public wservice: WebService,
         public navParams: NavParams) {
     }
 

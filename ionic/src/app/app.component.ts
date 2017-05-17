@@ -8,9 +8,9 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { SigninPage } from "../pages/signin/signin";
 import { SignupPage } from "../pages/signup/signup";
 import { WebService } from "../services/webservice";
-import { FavoritesPage } from "../pages/favorites/favorites";
 import { NewSeminarPage } from "../pages/new-seminar/new-seminar";
 import { NewProfessorPage } from "../pages/new-professor/new-professor";
+import { EditAccountPage } from "../pages/edit-account/edit-account";
 
 @Component({
     templateUrl: 'app.html'
@@ -23,6 +23,7 @@ export class MyApp {
     signupPage = SignupPage;
     newSeminarPage = NewSeminarPage;
     newProfessorPage = NewProfessorPage;
+    editAccountPage = EditAccountPage;
     userID = 123456;
 
     rootPage: any = this.tabsPage;
