@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController, MenuController } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
 import { AuthService } from "../services/auth";
 import firebase from 'firebase';
 
@@ -9,10 +10,10 @@ import { SigninPage } from "../pages/signin/signin";
 import { SignupPage } from "../pages/signup/signup";
 import { WebService } from "../services/webservice";
 import { FavoritesPage } from "../pages/favorites/favorites";
-import { NewSeminarPage } from "../pages/new-seminar/new-seminar";
 
 @Component({
-    templateUrl: 'app.html'
+    templateUrl: 'app.html',
+    providers: [StatusBar, SplashScreen]
 })
 export class MyApp {
     isAuthenticated = false;
@@ -20,7 +21,6 @@ export class MyApp {
     tabsPage = TabsPage;
     signinPage = SigninPage;
     signupPage = SignupPage;
-    newSeminarPage = NewSeminarPage;
     userID = 123456;
 
     rootPage: any = this.tabsPage;
@@ -30,7 +30,9 @@ export class MyApp {
     constructor(platform: Platform,
         private menuCtrl: MenuController,
         private authService: AuthService,
-        private wservice: WebService) {
+        private wservice: WebService,
+        private statusbar: StatusBar,
+        private splashscreen: SplashScreen) {
 
         firebase.initializeApp
         ({
@@ -55,8 +57,8 @@ export class MyApp {
         platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
-            StatusBar.styleDefault();
-            Splashscreen.hide();
+            statusbar.styleDefault();
+            splashscreen.hide();
         });
     }
 
