@@ -59,9 +59,8 @@
               <button *ngIf="!isSeminarInFavoritesByIndex(i)" icon-only ion-button color="primary-light" (click)="addToFavorites(i)">
                   <ion-icon name="star-outline"></ion-icon>
               </button>
-              <button *ngIf="isSeminarInFavoritesByIndex(i)" icon-left ion-button color="secondary" (click)="removeFromFavorites(i)">
+              <button *ngIf="isSeminarInFavoritesByIndex(i)" icon-left ion-button color="dark" (click)="removeFromFavorites(i)">
                   <ion-icon name="star-outline"></ion-icon>
-                  Desfavoritar
               </button>
           </ion-item-options>
       </ion-item-sliding>
