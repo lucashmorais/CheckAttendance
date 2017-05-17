@@ -8,7 +8,6 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class WebService {
     private NUSP = 123456;
-    private listFavoriteIDs = [];
     public lastSignupErrorMessage;
     public lastSeminarAddErrorMessage;
     public authChangeSubject;

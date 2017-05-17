@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { NgForm } from "@angular/forms/src/directives/ng_form";
-import { NavController } from "ionic-angular";
 import { LoadingController, AlertController } from "ionic-angular";
 import { WebService } from "../../services/webservice";
 import { ToastController } from "ionic-angular/components/toast/toast-controller";

@@ -7,7 +7,6 @@ import { WebService } from "../../services/webservice";
 import { ToastController } from "ionic-angular/components/toast/toast-controller";
 import { NavController } from "ionic-angular/navigation/nav-controller";
 import { SeminarPage } from "../seminar/seminar";
-import { SeminarInfo } from "../../models/seminar_info";
 
 @Component({
     selector: 'page-shopping-list',
@@ -30,7 +29,7 @@ export class ShoppingListPage {
         form.reset();
     }
 
-    onCheckItem(seminarInfo: SeminarInfo) {
+    onCheckItem(seminarInfo) {
         this.navCtrl.push(SeminarPage, {seminar_info: seminarInfo});
     }
 

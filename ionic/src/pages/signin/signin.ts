@@ -2,6 +2,20 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LoadingController, AlertController } from "ionic-angular";
 import { WebService } from "../../services/webservice";
+import { NgModule } from "@angular/core";
+import { IonicPageModule } from "ionic-angular/module";
+
+@NgModule({
+  declarations: [
+    SigninPage,
+  ],
+  imports: [
+    IonicPageModule.forChild(SigninPage),
+  ],
+  exports: [
+    SigninPage
+  ]
+})
 
 @Component({
     selector: 'page-signin',

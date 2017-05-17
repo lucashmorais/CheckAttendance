@@ -1,3 +1,4 @@
+/*
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SigninPage } from './signin';
@@ -14,3 +15,4 @@ import { SigninPage } from './signin';
   ]
 })
 export class SigninModule {}
+*/
