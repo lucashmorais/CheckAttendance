@@ -60,8 +60,8 @@ export class MyApp {
         );
 
         platform.ready().then(() => {
-            StatusBar.styleDefault();
-            Splashscreen.hide();
+            statusbar.styleDefault();
+            splashscreen.hide();
         });
     }
 
