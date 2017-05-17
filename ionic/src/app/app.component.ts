@@ -10,6 +10,7 @@ import { SignupPage } from "../pages/signup/signup";
 import { WebService } from "../services/webservice";
 import { FavoritesPage } from "../pages/favorites/favorites";
 import { NewSeminarPage } from "../pages/new-seminar/new-seminar";
+import { NewProfessorPage } from "../pages/new-professor/new-professor";
 
 @Component({
     templateUrl: 'app.html'
@@ -21,6 +22,7 @@ export class MyApp {
     signinPage = SigninPage;
     signupPage = SignupPage;
     newSeminarPage = NewSeminarPage;
+    newProfessorPage = NewProfessorPage;
     userID = 123456;
 
     rootPage: any = this.tabsPage;

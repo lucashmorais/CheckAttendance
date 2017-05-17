@@ -1,0 +1,63 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons start>
+            <button ion-button icon-only menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Novo Professor</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <form #f="ngForm" (ngSubmit)="onAddItem(f)">
+        <ion-list>
+            <ion-item>
+                <ion-label fixed>NUSP</ion-label>
+                <ion-input
+                          type="text"
+                          name="professorNUSP"
+                          placeholder="Grafos Aleatórios"
+                          ngModel
+                          required>
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed>Senha</ion-label>
+                <ion-input
+                          type="password"
+                          name="professorPassword"
+                          ngModel
+                          required>
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed>C. Senha</ion-label>
+                <ion-input
+                          type="password"
+                          name="professorPasswordConf"
+                          ngModel
+                          required>
+                </ion-input>
+            </ion-item>
+        </ion-list>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <button
+                         ion-button
+                         type="submit"
+                         block
+                         [disabled]="!f.valid || professorPassword != professorPasswordConf">Cadastrar Professor
+                    </button>
+                </ion-col>
+                <ion-col>
+                    <button
+                        ion-button
+                        (click)="f.reset()"
+                        block>Limpar
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

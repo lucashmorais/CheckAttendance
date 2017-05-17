@@ -33,6 +33,14 @@
             <button
                 ion-item
                 icon-left
+                (click)="onLoad(newProfessorPage)"
+                *ngIf="isAuthenticated && this.wservice.isProfessor()">
+                <ion-icon name ="person-add"></ion-icon>
+                Novo Professor
+            </button>
+            <button
+                ion-item
+                icon-left
                 (click)="onLogout()"
                 *ngIf="isAuthenticated">
                 <ion-icon name ="log-out"></ion-icon>
