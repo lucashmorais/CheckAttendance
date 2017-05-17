@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { SeminarInfo } from "../models/seminar_info";
 import { LoadingController } from "ionic-angular/components/loading/loading-controller";
 import { Subject } from "rxjs/Subject";
+import { Student } from "../models/student";
 import 'rxjs/add/operator/map'
 
 @Injectable()
@@ -51,6 +52,15 @@ export class WebService {
         return this.getLastSeminarAddErrorMessage;
     }
 
+    getStudentListForAllStudentsFromServer() {
+        return this.http
+            .get('http://207.38.82.139:8001/student')
+            .map(response => {
+                let json = response.json();
+                return new Student(json.name, json.nusp);
+            });
+    }
+
     getSeminarsInfoListFromServer() {
         const loading = this.loadingCtrl.create
         ({
@@ -65,6 +75,8 @@ export class WebService {
             .subscribe
         (
             (data) => {
+                console.log("[getSeminarsInfoListFromServer]: Here comes the server data.");
+                console.log(data.data);
                 this.rawSeminarList = data.data;
                 this.seminarInfoList = this.seminarInfoListFromRawSeminarList(data.data);
                 seminarFetchSubject.next(this.seminarInfoList);

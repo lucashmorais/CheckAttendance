@@ -23,8 +23,9 @@ export class ShoppingListPage {
 
     ionViewWillEnter() {
         this.wservice.getSeminarsInfoListFromServer()
-            .toPromise()
-            .then(data => {
+            .subscribe(data => {
+                console.log("[ionViewWillEnter]: Here comes the data we received from the Subject.");
+                console.log(data);
                 this.seminarInfoListCopy = data;
             });
     }
