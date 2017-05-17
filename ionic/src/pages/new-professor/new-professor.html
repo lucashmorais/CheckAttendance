@@ -12,9 +12,19 @@
     <form #f="ngForm" (ngSubmit)="onAddItem(f)">
         <ion-list>
             <ion-item>
-                <ion-label fixed>NUSP</ion-label>
+                <ion-label fixed>Nome</ion-label>
                 <ion-input
                           type="text"
+                          name="professorName"
+                          placeholder="Albert Einstein"
+                          ngModel
+                          required>
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed>NUSP</ion-label>
+                <ion-input
+                          type="number"
                           name="professorNUSP"
                           placeholder="12345678"
                           ngModel
