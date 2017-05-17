@@ -272,6 +272,25 @@ export class WebService {
             });
     }
 
+    confirmAttendanceForSeminarWithServerIndex(server_seminar_index: number) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        let body = this.createFormRequest({nusp: this.NUSP, seminar_id: server_seminar_index});
+        console.log(body);
+
+        let confirmAttendanceSubject = new Subject();
+
+        this.http.post('http://207.38.82.139:8001/attendence/submit', body, {headers: headers})
+            .map(res => res.json())
+            .subscribe(data => {
+                console.log(data);
+                confirmAttendanceSubject.next(data.success);
+            });
+
+        return confirmAttendanceSubject;
+    }
+
     logout() {
         this.userKind = -1;
         this.NUSP = -1;
