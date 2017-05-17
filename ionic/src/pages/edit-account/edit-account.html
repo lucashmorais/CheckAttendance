@@ -24,10 +24,20 @@
             </ion-item>
             -->
             <ion-item>
+                <ion-label fixed>Novo nome</ion-label>
+                <ion-input
+                          type="string"
+                          name="name"
+                          [minlength]="6"
+                          ngModel
+                          required>
+                </ion-input>
+            </ion-item>
+            <ion-item>
                 <ion-label fixed>Nova senha</ion-label>
                 <ion-input
                           type="password"
-                          name="professorPassword"
+                          name="pass"
                           [minlength]="6"
                           ngModel
                           required>
@@ -37,7 +47,7 @@
                 <ion-label fixed>C. Senha</ion-label>
                 <ion-input
                           type="password"
-                          name="professorPasswordConf"
+                          name="passConf"
                           ngModel
                           required>
                 </ion-input>
@@ -50,7 +60,7 @@
                          ion-button
                          type="submit"
                          block
-                         [disabled]="!f.valid || f.value.professorPassword != f.value.professorPasswordConf">Salvar
+                         [disabled]="!f.valid || f.value.pass != f.value.passConf">Salvar
                     </button>
                 </ion-col>
                 <ion-col>

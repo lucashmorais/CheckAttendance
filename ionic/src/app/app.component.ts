@@ -11,6 +11,7 @@ import { WebService } from "../services/webservice";
 import { NewSeminarPage } from "../pages/new-seminar/new-seminar";
 import { NewProfessorPage } from "../pages/new-professor/new-professor";
 import { EditAccountPage } from "../pages/edit-account/edit-account";
+import { Subject } from "rxjs/Subject";
 
 @Component({
     templateUrl: 'app.html'
@@ -26,7 +27,7 @@ export class MyApp {
     editAccountPage = EditAccountPage;
     userID = 123456;
 
-    rootPage: any = this.tabsPage;
+    rootPage: any = this.signinPage;
 
     @ViewChild('nav') nav: NavController;
 
@@ -41,10 +42,11 @@ export class MyApp {
             authDomain: "ionic2-recipebook-80089.firebaseapp.com"
         });
 
-        firebase.auth().onAuthStateChanged
-        (   user =>
+        wservice.authChangeSubject
+            .subscribe
+        (   nusp =>
             {
-                if (user) {
+                if (nusp != -1) {
                     this.isAuthenticated = true;
                     this.rootPage = this.tabsPage;
                 }
@@ -70,7 +72,7 @@ export class MyApp {
     }
 
     onLogout() {
-        this.authService.logout();
+        this.wservice.logout();
         this.menuCtrl.close();
         this.nav.setRoot(this.tabsPage);
     }
@@ -87,6 +89,6 @@ export class MyApp {
     }
 
     userIsSignedIn() {
-        return this.wservice.userIsSignedIn();
+        return this.wservice.isUserSignedIn();
     }
 }

@@ -14,9 +14,8 @@ export class SignupPage {
         private alertCtrl: AlertController) {}
 
     onSignup(form: NgForm) {
-        const loading = this.loadingCtrl.create
-        ({
-            content: 'Signing you up...'
+        const loading = this.loadingCtrl.create ({
+            content: 'Aguarde enquanto se faz o cadastro...'
         });
 
         loading.present();
@@ -24,24 +23,8 @@ export class SignupPage {
         this.wservice.signUpWithNUSPNameAndPass(form.value.nusp, form.value.name, form.value.pass);
 
         loading.dismiss();
-        /*
-            .then(data => 
-            {
-                loading.dismiss();
-                console.log("New user was successfully created.");
-            })
-            .catch(error => 
-            {
-                loading.dismiss();
-                const alert = this.alertCtrl.create
-                ({
-                    title: 'Signup failed!',
-                    message: error.message,
-                    buttons: ['Ok']
-                });
-                alert.present();
-            });
-         */
+
+        form.reset();
     }
 
 }

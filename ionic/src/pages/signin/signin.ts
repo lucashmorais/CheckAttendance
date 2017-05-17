@@ -1,43 +1,38 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from "../../services/auth";
 import { LoadingController, AlertController } from "ionic-angular";
+import { WebService } from "../../services/webservice";
 
 @Component({
-  selector: 'page-signin',
-  templateUrl: 'signin.html',
+    selector: 'page-signin',
+    templateUrl: 'signin.html',
 })
 export class SigninPage {
-    
-    constructor(private authService: AuthService,
-                private loadingCtrl: LoadingController,
-                private alertCtrl: AlertController) {}
+
+    constructor(private wservice: WebService,
+        private loadingCtrl: LoadingController,
+        private alertCtrl: AlertController) {}
 
     onSignin(form: NgForm) {
-        const loading = this.loadingCtrl.create
-        ({
-            content: 'Signing you in...'
-        });
+        this.wservice.authChangeSubject
+            .subscribe (
+                nusp => {
+                    if (nusp > -1) {
+                        //TODO: Jump to root page
+                        console.log()
+                    }
+                    else {
+                        const alert = this.alertCtrl.create
+                        ({
+                            title: 'Falha de login',
+                            message: 'Verifique, por favor, o usuário e a senha.',
+                            buttons: ['Ok']
+                        });
+                        alert.present();
+                    }
+                }
+            );
 
-        loading.present();
-
-        this.authService.signin(form.value.email, form.value.password)
-            .then(data => 
-            {
-                loading.dismiss();
-                console.log("Successfully logged into " + form.value.email + " account.");
-            })
-            .catch(error => 
-            {
-                loading.dismiss();
-                const alert = this.alertCtrl.create
-                ({
-                    title: 'Sign-in failed!',
-                    message: error.message,
-                    buttons: ['Ok']
-                });
-                alert.present();
-            });
+        this.wservice.signInWithNUSPAndPass(form.value.nusp, form.value.pass);
     }
-
 }
