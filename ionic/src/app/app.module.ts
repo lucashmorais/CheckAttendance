@@ -21,6 +21,7 @@ import { NewSeminarPage } from "../pages/new-seminar/new-seminar";
 import { NewProfessorPage } from "../pages/new-professor/new-professor";
 import { ConfirmationPage } from "../pages/confirmation/confirmation";
 import { EditAccountPage } from "../pages/edit-account/edit-account";
+import { ConfirmationPopoverPage } from "../pages/seminar/conf-popover/conf-popover";
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import { EditAccountPage } from "../pages/edit-account/edit-account";
         NewSeminarPage,
         NewProfessorPage,
         ConfirmationPage,
+        ConfirmationPopoverPage,
         EditAccountPage,
         SLOptionsPage
     ],
@@ -60,6 +62,7 @@ import { EditAccountPage } from "../pages/edit-account/edit-account";
         NewSeminarPage,
         NewProfessorPage,
         ConfirmationPage,
+        ConfirmationPopoverPage,
         EditAccountPage,
         SLOptionsPage
     ],
