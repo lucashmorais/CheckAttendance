@@ -17,11 +17,7 @@ export class SigninPage {
         this.wservice.authChangeSubject
             .subscribe (
                 nusp => {
-                    if (nusp > -1) {
-                        //TODO: Jump to root page
-                        console.log()
-                    }
-                    else {
+                    if (nusp == -1) {
                         const alert = this.alertCtrl.create
                         ({
                             title: 'Falha de login',

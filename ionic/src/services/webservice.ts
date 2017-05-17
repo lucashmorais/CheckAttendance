@@ -124,6 +124,27 @@ export class WebService {
             });
     }
 
+    changeAccountNameAndPass(name: string, pass: string) {
+        console.log("[changeAccountNameAndPass]: Used parameters: " + JSON.stringify({name: name, pass: pass}));
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        let body = this.createFormRequest({nusp: this.NUSP, name: name, pass: pass});
+        console.log(body);
+
+        let editionSubject = new Subject();
+
+        this.http.post('http://207.38.82.139:8001/' + (this.isProfessor() ? 'teacher' : 'student') + '/edit', body, {headers: headers})
+            .map(res => res.json())
+            .subscribe(data => {
+                console.log(data);
+                editionSubject.next(data.success);
+            });
+
+        return editionSubject;
+    }
+
     signInWithNUSPAndPass(nusp: number, pass: string) {
         console.log("[signInWithNUSPAndPass]: Used parameters: " + nusp + ", " + name + " and " + pass);
 
@@ -187,6 +208,8 @@ export class WebService {
     logout() {
         this.userKind = -1;
         this.NUSP = -1;
-        this.authChangeSubject.next(-1);
+        //This helps subscribers to this Subject know that this is not
+        //a failed login attempt, but simply a logout operation
+        this.authChangeSubject.next(-2);
     }
 }
