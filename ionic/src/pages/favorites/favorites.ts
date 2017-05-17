@@ -18,8 +18,8 @@ export class FavoritesPage {
         this.favoritesListCopy = this.wservice.getFavorites();
     }
 
-    onCheckItem(seminar_index) {
-        this.navCtrl.push(SeminarPage, {seminar_info: this.wservice.getSeminarByIndex(seminar_index)});
+    onCheckItem(server_seminar_index) {
+        this.navCtrl.push(SeminarPage, {seminar_info: this.wservice.getSeminarByServerIndex(server_seminar_index)});
     }
 
     removeFromFavorites(server_seminar_index: number) {

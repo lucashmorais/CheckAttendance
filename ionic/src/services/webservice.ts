@@ -67,8 +67,8 @@ export class WebService {
         return this.seminarInfoList.filter((element, index) => {return this.isInFavorites(element.id)});
     }
 
-    getSeminarByIndex(seminar_index: number) {
-        return this.listSeminars[seminar_index];
+    getSeminarByServerIndex(server_seminar_index: number) {
+        return this.seminarInfoList.filter(element => {return (element.id == server_seminar_index)})[0];
     }
 
     addToFavoritesByIndex(server_seminar_index: number) {

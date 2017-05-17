@@ -10,7 +10,9 @@ export class NewSeminarPage {
     constructor(private navCtrl: NavController) {}
 
     onAddItem(form: NgForm) {
-        console.log(form);
-        form.reset();
+        if (form.valid) {
+            console.log(form);
+            form.reset();
+        }
     }
 }
