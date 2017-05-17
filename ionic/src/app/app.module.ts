@@ -22,6 +22,7 @@ import { NewProfessorPage } from "../pages/new-professor/new-professor";
 import { ConfirmationPage } from "../pages/confirmation/confirmation";
 import { EditAccountPage } from "../pages/edit-account/edit-account";
 import { ConfirmationPopoverPage } from "../pages/seminar/conf-popover/conf-popover";
+import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 
 @NgModule({
     declarations: [
@@ -71,6 +72,7 @@ import { ConfirmationPopoverPage } from "../pages/seminar/conf-popover/conf-popo
         ShoppingListService,
         RecipesService,
         AuthService,
+        BarcodeScanner,
         WebService
     ]
 })

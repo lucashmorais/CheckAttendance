@@ -2,7 +2,6 @@ import { Ingredient } from "../models/ingredient";
 import { Http, Response } from "@angular/http"
 import { Injectable } from "@angular/core"
 import { AuthService } from "./auth";
-import { SeminarInfo } from "../models/seminar_info";
 import 'rxjs/Rx';
 
 @Injectable()
