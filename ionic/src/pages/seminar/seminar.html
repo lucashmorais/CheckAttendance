@@ -49,51 +49,53 @@
             </ion-grid>
         </ion-list>
     </ion-card>
-    <ion-card>
-        <ion-card-content>
-            <ion-grid no-padding>
-                <ion-row no-padding>
-                    <ion-col>
-                        <button ion-button round outline block icon-left>
-                            <ion-icon name="create"></ion-icon>
-                            Editar
-                        </button>
-                    </ion-col>
-                    <ion-col>
-                        <button ion-button round outline block icon-left>
-                            <ion-icon name="trash"></ion-icon>
-                            Excluir
-                        </button>
-                    </ion-col>
-                </ion-row>
-                <ion-row no-padding>
-                    <ion-col>
-                        <button ion-button round outline block icon-left>
-                            <ion-icon name="barcode"></ion-icon>
-                            Confirmação por QR-Code
-                        </button>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col>
-                        <button ion-button round outline block icon-left>
-                            <ion-icon name="bluetooth"></ion-icon>
-                            Confirmação por Bluetooth
-                        </button>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-card-content>
-    </ion-card>
-    <ion-card>
-        <ion-list>
-            <ion-list-header>
-                Participantes já confirmados
-            </ion-list-header>
-            <ion-item *ngFor="let attendee of attendees">
-                {{attendee}}
-            </ion-item>
-        </ion-list>
-    </ion-card>
+    <ng-container *ngIf="wservice.isProfessor()">
+        <ion-card>
+            <ion-card-content>
+                <ion-grid no-padding>
+                    <ion-row no-padding>
+                        <ion-col>
+                            <button ion-button round outline block icon-left>
+                                <ion-icon name="create"></ion-icon>
+                                Editar
+                            </button>
+                        </ion-col>
+                        <ion-col>
+                            <button ion-button round outline block icon-left>
+                                <ion-icon name="trash"></ion-icon>
+                                Excluir
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row no-padding>
+                        <ion-col>
+                            <button ion-button round outline block icon-left>
+                                <ion-icon name="barcode"></ion-icon>
+                                Confirmação por QR-Code
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <button ion-button round outline block icon-left>
+                                <ion-icon name="bluetooth"></ion-icon>
+                                Confirmação por Bluetooth
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-list>
+                <ion-list-header>
+                    Participantes já confirmados
+                </ion-list-header>
+                <ion-item *ngFor="let attendee of attendees">
+                    {{attendee}}
+                </ion-item>
+            </ion-list>
+        </ion-card>
+    </ng-container>
 
 </ion-content>

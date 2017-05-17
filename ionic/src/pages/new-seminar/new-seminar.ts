@@ -11,7 +11,7 @@ export class NewSeminarPage {
 
     onAddItem(form: NgForm) {
         if (form.valid) {
-            console.log(form);
+            console.log(form.value);
             form.reset();
         }
     }

@@ -16,7 +16,7 @@
                 <ion-input
                           type="text"
                           name="professorNUSP"
-                          placeholder="Grafos Aleatórios"
+                          placeholder="Albert Einstein"
                           ngModel
                           required>
                 </ion-input>
@@ -47,7 +47,7 @@
                          ion-button
                          type="submit"
                          block
-                         [disabled]="!f.valid || professorPassword != professorPasswordConf">Cadastrar Professor
+                         [disabled]="!f.valid || f.value.professorPassword != f.value.professorPasswordConf">Cadastrar Professor
                     </button>
                 </ion-col>
                 <ion-col>
