@@ -92,8 +92,40 @@
       "cordova-plugin-geolocation": {},
       "cordova-plugin-file": {}
     },
-    "platforms": [
-      "android"
-    ]
-  }
+    "cordovaPlugins": [
+        "cordova-plugin-whitelist",
+        "cordova-plugin-console",
+        "cordova-plugin-statusbar",
+        "cordova-plugin-device",
+        "cordova-plugin-splashscreen",
+        "ionic-plugin-keyboard"
+    ],
+    "cordovaPlatforms": [
+        "ios",
+        {
+            "platform": "ios",
+            "version": "",
+            "locator": "ios"
+        },
+        "android",
+        {
+            "platform": "android",
+            "version": "",
+            "locator": "android"
+        }
+    ],
+    "cordova": {
+        "plugins": {
+            "cordova-plugin-console": {},
+            "cordova-plugin-device": {},
+            "cordova-plugin-splashscreen": {},
+            "cordova-plugin-statusbar": {},
+            "cordova-plugin-whitelist": {},
+            "ionic-plugin-keyboard": {},
+            "phonegap-plugin-barcodescanner": {}
+        },
+        "platforms": [
+            "android"
+        ]
+    }
 }
