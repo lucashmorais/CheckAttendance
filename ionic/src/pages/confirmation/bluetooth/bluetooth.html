@@ -1,0 +1,39 @@
+<ion-header>
+	<ion-navbar>
+		<ion-buttons start>
+			<button ion-button icon-only menuToggle>
+				<ion-icon name="menu"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title>Presença</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content style="background-color: #f4f4f7;">
+	<ion-card>
+		<h1>Última mensagem de conexão: {{this.connectionMessage}}</h1>
+		<button ion-button ion-icon="bluetooth" icon-left outline block (click)="getAllBluetoothDevices()">Listar dispositivos pareados</button>
+		<button ion-button ion-icon="bluetooth" icon-left outline block (click)="discoverUnpairedDevices()">Procurar mais dispositivos</button>
+		<button ion-button ion-icon="bluetooth" icon-left outline block (click)="this.bluetooth.requestEnable()">Habilitar bluetooth</button>
+	</ion-card>
+	<ion-card>
+		<ion-label>Dispositivos pareados</ion-label>
+		<ion-list>
+			<ion-item *ngFor="let item of this.paired_device_list; let i = index">
+				<button (click)="onTalkWithDeviceWithAddr(item.address)">
+					<h2>{{ item.name }} ({{ item.address }})</h2>
+				</button>
+			</ion-item>
+		</ion-list>
+	</ion-card>
+	<ion-card>
+		<ion-label>Novos Dispositivos</ion-label>
+		<ion-list>
+			<ion-item *ngFor="let item of this.unpaired_device_list; let i = index">
+				<button (click)="onTalkWithDeviceWithAddr(item.address)">
+					<h2>{{ item.name }} ({{ item.address }})</h2>
+				</button>
+			</ion-item>
+		</ion-list>
+	</ion-card>
+</ion-content>

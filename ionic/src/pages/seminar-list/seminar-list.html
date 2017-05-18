@@ -1,0 +1,68 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+    </ion-buttons>
+    <!--
+    <ion-buttons end>
+        <button ion-button icon-only (click)="onShowOptions($event)">
+            <ion-icon name="more"></ion-icon>
+        </button>
+    </ion-buttons>
+    -->
+    <ion-title>Seminários</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!--
+  <form #f="ngForm" (ngSubmit)="onAddItem(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Name</ion-label>
+        <ion-input
+          type="text"
+          name="ingredientName"
+          placeholder="Milk"
+          ngModel
+          required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Amount</ion-label>
+        <ion-input
+          type="number"
+          name="amount"
+          placeholder="2"
+          ngModel
+          required></ion-input>
+      </ion-item>
+    </ion-list>
+    <button
+      ion-button
+      type="submit"
+      block
+      [disabled]="!f.valid">Add Item</button>
+  </form>
+  -->
+
+  <ion-list>
+      <ion-item-sliding *ngFor="let item of this.seminarInfoListCopy; let i = index">
+          <ion-item (click)="onCheckItem(item)">
+              <h2>{{ item.name }} ({{ item.id }})</h2>
+          </ion-item>
+          <ion-item-options side="right">
+              <button *ngIf="!isSeminarInFavoritesByIndex(i)" icon-only ion-button color="primary-light" (click)="addToFavorites(i)">
+                  <ion-icon name="star-outline"></ion-icon>
+              </button>
+              <button *ngIf="isSeminarInFavoritesByIndex(i)" icon-left ion-button color="dark" (click)="removeFromFavorites(i)">
+                  <ion-icon name="star-outline"></ion-icon>
+              </button>
+          </ion-item-options>
+      </ion-item-sliding>
+  </ion-list>
+</ion-content>
