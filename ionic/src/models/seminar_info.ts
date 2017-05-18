@@ -1,6 +1,8 @@
+import { Location } from "./location";
 export class SeminarInfo {
 
     public favorite = false;
+	public location = new Location(0, 0);
 
     constructor (public name: string,
         public id: number,

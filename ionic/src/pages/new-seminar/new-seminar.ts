@@ -31,7 +31,7 @@ export class NewSeminarPage {
                 if (wasItSuccessfull == true) {
                     var toastMessageConfirmingAddition = this.toastCtrl.create
                     ({
-                        message: "Cadastro de novo seminário feito com sucesso!",
+                        message: "Seminário cadastrado/editado com sucesso!",
                         duration: 2500,
                         position: "bottom"
                     });

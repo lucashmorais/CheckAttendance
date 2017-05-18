@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ShoppingListPage } from "../shopping-list/shopping-list";
-import { RecipesPage } from "../recipes/recipes";
+import { SeminarListPage } from "../seminar-list/seminar-list";
 import { WebService } from "../../services/webservice";
 import { FavoritesPage } from "../favorites/favorites";
 import { NavController } from "ionic-angular";
@@ -18,8 +17,7 @@ export class TabsPage {
         private wservice: WebService
     ) {}
 
-    slPage = ShoppingListPage;
-    recipesPage = RecipesPage;
+    slPage = SeminarListPage;
     favoritesPage = FavoritesPage;
     newSeminarPage = NewSeminarPage;
     confirmationPage = ConfirmationPage;

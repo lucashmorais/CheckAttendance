@@ -70,12 +70,14 @@
                                 Editar
                             </button>
                         </ion-col>
+<!--
                         <ion-col>
                             <button ion-button round outline block icon-left (click)="onRemoveSeminar()">
                                 <ion-icon name="trash"></ion-icon>
                                 Excluir
                             </button>
                         </ion-col>
+-->
                     </ion-row>
                     <ion-row no-padding>
                         <ion-col>
@@ -87,9 +89,9 @@
                     </ion-row>
                     <ion-row>
                         <ion-col>
-                            <button ion-button round outline block icon-left>
-                                <ion-icon name="bluetooth"></ion-icon>
-                                Confirmação por Bluetooth
+                            <button ion-button round outline block icon-left (click)="onOpenMap()">
+                                <ion-icon name="map"></ion-icon>
+                                Confirmação por GPS
                             </button>
                         </ion-col>
                     </ion-row>

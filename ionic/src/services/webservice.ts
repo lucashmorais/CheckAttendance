@@ -4,314 +4,389 @@ import { SeminarInfo } from "../models/seminar_info";
 import { LoadingController } from "ionic-angular/components/loading/loading-controller";
 import { Subject } from "rxjs/Subject";
 import { Student } from "../models/student";
+import { Location } from "../models/location";
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class WebService {
-    private NUSP = 123456;
-    public lastSignupErrorMessage;
-    public lastSeminarAddErrorMessage;
-    public authChangeSubject;
-    userKind = -1;
-    rawSeminarList = [];
-    seminarInfoList = [];
-    isSeminarFavorite = [];
+	private NUSP = 123456;
+	public lastSignupErrorMessage;
+	public lastSeminarAddErrorMessage;
+	public authChangeSubject;
+	userKind = -1;
+	rawSeminarList = [];
+	seminarInfoList = [];
+	isSeminarFavorite = [];
 
-    constructor(private http: Http,
-        private loadingCtrl: LoadingController) {
+	constructor(private http: Http,
+		private loadingCtrl: LoadingController) {
 
-        for (let i = 0; i < 1000; i++)
-        this.isSeminarFavorite[i] = false;
+		for (let i = 0; i < 1000; i++)
+		this.isSeminarFavorite[i] = false;
 
-        this.authChangeSubject = new Subject();
-    }
+		this.authChangeSubject = new Subject();
+	}
 
-    listSeminars() {
-        return this.http
-            .get('http://207.38.82.139:8001/seminar')
-            .map
-        (
-            (response: Response) =>
-            {
-                return response.json();
-            }
-        );
-    }
+	listSeminars() {
+		return this.http
+			.get('http://207.38.82.139:8001/seminar')
+			.map
+		(
+			(response: Response) =>
+			{
+				return response.json();
+			}
+		);
+	}
 
-    seminarInfoListFromRawSeminarList(rawList) {
-        return rawList.map(
-            element => {return new SeminarInfo(element.name, element.id, "Jenivaldo da Patagônia", 19, 0, "IME-USP")}
-        );
-    }
+	seminarInfoListFromRawSeminarList(rawList) {
+		return rawList.map(
+			element => {return new SeminarInfo(element.name, element.id, "Jenivaldo da Patagônia", 19, 0, "IME-USP")}
+		);
+	}
 
-    getLastSignupErrorMessage() {
-        return this.lastSignupErrorMessage;
-    }
+	getLastSignupErrorMessage() {
+		return this.lastSignupErrorMessage;
+	}
 
-    getLastSeminarAddErrorMessage() {
-        return this.getLastSeminarAddErrorMessage;
-    }
+	getLastSeminarAddErrorMessage() {
+		return this.getLastSeminarAddErrorMessage;
+	}
 
-    getStudentListForAllStudentsFromServer() {
-        return this.http
-            .get('http://207.38.82.139:8001/student')
-            .map(response => {
-                let json = response.json();
-                return new Student(json.name, json.nusp);
-            });
-    }
+	getStudentListForAllStudentsFromServer() {
+		return this.http
+			.get('http://207.38.82.139:8001/student')
+			.map(response => {
+				let json = response.json();
+				return new Student(json.name, json.nusp);
+			});
+	}
 
-    getSeminarsInfoListFromServer() {
-        const loading = this.loadingCtrl.create
-        ({
-            content: 'Atualizando lista de seminários...'
-        });
+	getSeminarsInfoListFromServer() {
+		const loading = this.loadingCtrl.create
+		({
+			content: 'Atualizando lista de seminários...'
+		});
 
-        var seminarFetchSubject = new Subject();
+		var seminarFetchSubject = new Subject();
 
-        loading.present();
+		loading.present();
 
-        this.listSeminars()
-            .subscribe
-        (
-            (data) => {
-                console.log("[getSeminarsInfoListFromServer]: Here comes the server data.");
-                console.log(data.data);
-                this.rawSeminarList = data.data;
-                this.seminarInfoList = this.seminarInfoListFromRawSeminarList(data.data);
-                seminarFetchSubject.next(this.seminarInfoList);
-                loading.dismiss();
-            },
-            error => {
-                console.log(error);
-                seminarFetchSubject.next([]);
-                loading.dismiss();
-            }
-        );
+		this.listSeminars()
+			.subscribe
+		(
+			(data) => {
+				console.log("[getSeminarsInfoListFromServer]: Here comes the server data.");
+				console.log(data.data);
+				this.rawSeminarList = data.data;
+				this.seminarInfoList = this.seminarInfoListFromRawSeminarList(data.data);
+				seminarFetchSubject.next(this.seminarInfoList);
+				loading.dismiss();
+			},
+			error => {
+				console.log(error);
+				seminarFetchSubject.next([]);
+				loading.dismiss();
+			}
+		);
 
-        return seminarFetchSubject;
-    }
+		return seminarFetchSubject;
+	}
 
-    isProfessor() {
-        return this.userKind == 1;
-    }
+	isProfessor() {
+		return this.userKind == 1;
+	}
 
-    userID() {
-        return this.NUSP;
-    }
+	userID() {
+		return this.NUSP;
+	}
 
-    isUserSignedIn() {
-        return this.userKind != -1;
-    }
+	isUserSignedIn() {
+		return this.userKind != -1;
+	}
 
-    getFavorites() {
-        return this.seminarInfoList.filter((element, index) => {return this.isInFavorites(element.id)});
-    }
+	getFavorites() {
+		return this.seminarInfoList.filter((element, index) => {return this.isInFavorites(element.id)});
+	}
 
-    getSeminarByServerIndex(server_seminar_index: number) {
-        return this.seminarInfoList.filter(element => {return (element.id == server_seminar_index)})[0];
-    }
+	getSeminarByServerIndex(server_seminar_index: number) {
+		return this.seminarInfoList.filter(element => {return (element.id == server_seminar_index)})[0];
+	}
 
-    addToFavoritesByIndex(server_seminar_index: number) {
-        this.isSeminarFavorite[server_seminar_index] = true;
-        this.seminarInfoList[server_seminar_index].favorite = true;
-    }
+	addToFavoritesByIndex(server_seminar_index: number) {
+		this.isSeminarFavorite[server_seminar_index] = true;
+		this.seminarInfoList[server_seminar_index].favorite = true;
+	}
 
-    removeFromFavoritesByIndex(server_seminar_index: number) {
-        this.isSeminarFavorite[server_seminar_index] = false;
-        this.seminarInfoList[server_seminar_index].favorite = false;
-    }
+	removeFromFavoritesByIndex(server_seminar_index: number) {
+		this.isSeminarFavorite[server_seminar_index] = false;
+		this.seminarInfoList[server_seminar_index].favorite = false;
+	}
 
-    isInFavorites(server_seminar_index: number) {
-        return (this.isSeminarFavorite[server_seminar_index] == true);
-    }
+	isInFavorites(server_seminar_index: number) {
+		return (this.isSeminarFavorite[server_seminar_index] == true);
+	}
 
-    createFormRequest(obj) {
-        var str = [];
-        for(var p in obj)
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        return str.join("&");
-    }
+	createFormRequest(obj) {
+		var str = [];
+		for(var p in obj)
+			str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+		return str.join("&");
+	}
 
-    signUpWithNUSPNameAndPass(nusp: number, name: string, pass: string, as_professor: boolean) {
-        console.log("[signUpWithNUSPNameAndPass]: Used parameters: " + nusp + ", " + name + " and " + pass);
+	signUpWithNUSPNameAndPass(nusp: number, name: string, pass: string, as_professor: boolean) {
+		console.log("[signUpWithNUSPNameAndPass]: Used parameters: " + nusp + ", " + name + " and " + pass);
 
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        let body = this.createFormRequest({nusp: nusp, name: name, pass: pass});
-        console.log(body);
+		let body = this.createFormRequest({nusp: nusp, name: name, pass: pass});
+		console.log(body);
 
-        var signupSubject = new Subject();
+		var signupSubject = new Subject();
 
-        this.http.post('http://207.38.82.139:8001/' + (as_professor ? "teacher" : "student") + '/add', body, {headers: headers})
-            .map(res => res.json())
-            .subscribe(data => {
-                console.log(data);
-                let wasItSuccessfull = data.success && (data.message === undefined);
-                signupSubject.next(wasItSuccessfull);
+		this.http.post('http://207.38.82.139:8001/' + (as_professor ? "teacher" : "student") + '/add', body, {headers: headers})
+			.map(res => res.json())
+			.subscribe(data => {
+				console.log(data);
+				let wasItSuccessfull = data.success && (data.message === undefined);
+				signupSubject.next(wasItSuccessfull);
 
-                if (!wasItSuccessfull)
-                    this.lastSignupErrorMessage = data.message;
-            });
+				if (!wasItSuccessfull)
+					this.lastSignupErrorMessage = data.message;
+			});
 
-        return signupSubject;
-    }
+		return signupSubject;
+	}
 
-    changeAccountNameAndPass(name: string, pass: string) {
-        console.log("[changeAccountNameAndPass]: Used parameters: " + JSON.stringify({name: name, pass: pass}));
+	changeAccountNameAndPass(name: string, pass: string) {
+		console.log("[changeAccountNameAndPass]: Used parameters: " + JSON.stringify({name: name, pass: pass}));
 
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        let body = this.createFormRequest({nusp: this.NUSP, name: name, pass: pass});
-        console.log(body);
+		let body = this.createFormRequest({nusp: this.NUSP, name: name, pass: pass});
+		console.log(body);
 
-        let editionSubject = new Subject();
+		let editionSubject = new Subject();
 
-        this.http.post('http://207.38.82.139:8001/' + (this.isProfessor() ? 'teacher' : 'student') + '/edit', body, {headers: headers})
-            .map(res => res.json())
-            .subscribe(data => {
-                console.log(data);
-                editionSubject.next(data.success);
-            });
+		this.http.post('http://207.38.82.139:8001/' + (this.isProfessor() ? 'teacher' : 'student') + '/edit', body, {headers: headers})
+			.map(res => res.json())
+			.subscribe(data => {
+				console.log(data);
+				editionSubject.next(data.success);
+			});
 
-        return editionSubject;
-    }
+		return editionSubject;
+	}
 
-    addSeminarInfoToServer(seminarInfo: SeminarInfo) {
-        var extraAttributesJSONStr = JSON.stringify({
-            name: seminarInfo.name, 
-            rest: JSON.stringify({
-                lecturer: seminarInfo.lecturer,
-                time_hour: seminarInfo.time_hour,
-                time_min: seminarInfo.time_min,
-                place: seminarInfo.place
-            })
-        });
+	changeSeminarNameAndData(name: string, seminarInfo: SeminarInfo) {
+		console.log("[changeSeminarNameAndData]: Used parameters: " + JSON.stringify({name: name, seminarInfo: seminarInfo}));
 
-        console.log("[changeAccountNameAndPass]: Used parameters: " + extraAttributesJSONStr);
+		var extraAttributesJSONStr = JSON.stringify({
+			lecturer: seminarInfo.lecturer,
+			time_hour: seminarInfo.time_hour,
+			time_min: seminarInfo.time_min,
+			lat: seminarInfo.location.lat,
+			lng: seminarInfo.location.lng,
+			place: seminarInfo.place
+		});
 
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+		console.log("[changeAccountNameAndPass]: Extra parameters: " + extraAttributesJSONStr);
 
-        let body = this.createFormRequest({name: seminarInfo.name, data: extraAttributesJSONStr});
-        console.log(body);
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        let seminarAddSubject = new Subject();
+		let body = this.createFormRequest({name: seminarInfo.name, data: extraAttributesJSONStr});
+		console.log(body);
 
-        this.http.post('http://207.38.82.139:8001/seminar/add', body, {headers: headers})
-            .map(res => res.json())
-            .subscribe(data => {
-                console.log(data);
-                seminarAddSubject.next(data.success);
-            });
+		let seminarEditSubject = new Subject();
 
-        return seminarAddSubject;
-    }
+		this.http.post('http://207.38.82.139:8001/seminar/edit', body, {headers: headers})
+			.map(res => res.json())
+			.subscribe(data => {
+				console.log(data);
+				seminarEditSubject.next(data.success);
+			});
 
-    removeSeminarInfoFromServer(seminarInfo: SeminarInfo) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+		return seminarEditSubject;
+	}
 
-        let body = this.createFormRequest({id: seminarInfo.id});
-        console.log(body);
+	addSeminarInfoToServer(seminarInfo: SeminarInfo) {
+		var extraAttributesJSONStr = JSON.stringify({
+			name: seminarInfo.name, 
+			rest: JSON.stringify({
+				lecturer: seminarInfo.lecturer,
+				time_hour: seminarInfo.time_hour,
+				time_min: seminarInfo.time_min,
+				lat: seminarInfo.location.lat,
+				lng: seminarInfo.location.lng,
+				place: seminarInfo.place
+			})
+		});
 
-        let seminarRemoveSubject = new Subject();
+		console.log("[changeAccountNameAndPass]: Used parameters: " + extraAttributesJSONStr);
 
-        this.http.post('http://207.38.82.139:8001/seminar/delete', body, {headers: headers})
-            .map(res => res.json())
-            .subscribe(data => {
-                console.log(data);
-                seminarRemoveSubject.next(data.success);
-            });
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        return seminarRemoveSubject;
-    }
+		let body = this.createFormRequest({name: seminarInfo.name, data: extraAttributesJSONStr});
+		console.log(body);
 
-    signInWithNUSPAndPass(nusp: number, pass: string) {
-        console.log("[signInWithNUSPAndPass]: Used parameters: " + nusp + ", " + name + " and " + pass);
+		let seminarAddSubject = new Subject();
 
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+		this.http.post('http://207.38.82.139:8001/seminar/add', body, {headers: headers})
+			.map(res => res.json())
+			.subscribe(data => {
+				console.log(data);
+				seminarAddSubject.next(data.success);
+			});
 
-        let body = this.createFormRequest({nusp: nusp, pass: pass});
-        console.log(body);
+		return seminarAddSubject;
+	}
 
-        var studentLoginAttemptStatus = false;
-        var professorLoginAttemptStatus = false;
+	removeSeminarInfoFromServer(seminarInfo: SeminarInfo) {
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        const loading = this.loadingCtrl.create({
-            content: 'Aguarde enquanto efetuamos o login...'
-        });
+		let body = this.createFormRequest({id: seminarInfo.id});
+		console.log(body);
 
-        loading.present();
+		let seminarRemoveSubject = new Subject();
 
-        this.http.post('http://207.38.82.139:8001/login/student', body, {headers: headers})
-            .map(res => res.json())
-            .subscribe(data => {
-                studentLoginAttemptStatus = data.success;
-                console.log(data);
+		this.http.post('http://207.38.82.139:8001/seminar/delete', body, {headers: headers})
+			.map(res => res.json())
+			.subscribe(data => {
+				console.log(data);
+				seminarRemoveSubject.next(data.success);
+			});
 
-                if (studentLoginAttemptStatus == false) {
-                    console.log("[signInWithNUSPAndPass]: Login as student fail. We'll try to login as professor now.");
+		return seminarRemoveSubject;
+	}
 
-                    this.http.post('http://207.38.82.139:8001/login/teacher', body, {headers: headers})
-                        .map(res => res.json())
-                        .subscribe(data => {
-                            professorLoginAttemptStatus = data.success;
-                            console.log(data);
+	retrieveSeminarLocationFromServerIndex(server_seminar_index: number){
+		let seminarLocationSubject = new Subject();
 
-                            if (professorLoginAttemptStatus == false) {
-                                //This represents a failed attempt to login as any kind of user
-                                this.userKind = -1;
-                                this.NUSP = -1;
-                                this.authChangeSubject.next(-1);
-                                loading.dismiss();
-                            }
-                            else {
-                                //This represents a successfull login as a professor
-                                this.userKind = 1;
-                                this.NUSP = nusp;
-                                this.authChangeSubject.next(nusp);
-                                loading.dismiss();
-                            }
-                        });
-                }
-                else {
-                    //This represents a successfull login as a student
-                    this.userKind = 0;
-                    this.NUSP = nusp;
-                    this.authChangeSubject.next(nusp);
-                    loading.dismiss();
-                }
-            });
-    }
+		this.http
+			.get('http://207.38.82.139:8001/seminar/get/' + server_seminar_index)
+			.map
+		(
+			(response: Response) =>
+			{
+				var resData = response.json().data;
+				var seminarLoc = new Location(resData.lat, resData.lng);
+				seminarLocationSubject.next(seminarLoc)
+				return seminarLoc;
+			}
+		);
 
-    confirmAttendanceForSeminarWithServerIndex(server_seminar_index: number) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+		return seminarLocationSubject;
+	}
 
-        let body = this.createFormRequest({nusp: this.NUSP, seminar_id: server_seminar_index});
-        console.log(body);
+	signInWithNUSPAndPass(nusp: number, pass: string) {
+		console.log("[signInWithNUSPAndPass]: Used parameters: " + nusp + ", " + name + " and " + pass);
 
-        let confirmAttendanceSubject = new Subject();
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        this.http.post('http://207.38.82.139:8001/attendence/submit', body, {headers: headers})
-            .map(res => res.json())
-            .subscribe(data => {
-                console.log(data);
-                confirmAttendanceSubject.next(data.success);
-            });
+		let body = this.createFormRequest({nusp: nusp, pass: pass});
+		console.log(body);
 
-        return confirmAttendanceSubject;
-    }
+		var studentLoginAttemptStatus = false;
+		var professorLoginAttemptStatus = false;
 
-    logout() {
-        this.userKind = -1;
-        this.NUSP = -1;
-        //This helps subscribers to this Subject know that this is not
-        //a failed login attempt, but simply a logout operation
-        this.authChangeSubject.next(-2);
-    }
+		const loading = this.loadingCtrl.create({
+			content: 'Aguarde enquanto efetuamos o login...'
+		});
+
+		loading.present();
+
+		this.http.post('http://207.38.82.139:8001/login/student', body, {headers: headers})
+			.map(res => res.json())
+			.subscribe(data => {
+				studentLoginAttemptStatus = data.success;
+				console.log(data);
+
+				if (studentLoginAttemptStatus == false) {
+					console.log("[signInWithNUSPAndPass]: Login as student fail. We'll try to login as professor now.");
+
+					this.http.post('http://207.38.82.139:8001/login/teacher', body, {headers: headers})
+						.map(res => res.json())
+						.subscribe(data => {
+							professorLoginAttemptStatus = data.success;
+							console.log(data);
+
+							if (professorLoginAttemptStatus == false) {
+								//This represents a failed attempt to login as any kind of user
+								this.userKind = -1;
+								this.NUSP = -1;
+								this.authChangeSubject.next(-1);
+								loading.dismiss();
+							}
+							else {
+								//This represents a successfull login as a professor
+								this.userKind = 1;
+								this.NUSP = nusp;
+								this.authChangeSubject.next(nusp);
+								loading.dismiss();
+							}
+						});
+				}
+				else {
+					//This represents a successfull login as a student
+					this.userKind = 0;
+					this.NUSP = nusp;
+					this.authChangeSubject.next(nusp);
+					loading.dismiss();
+				}
+			});
+	}
+
+	confirmAttendanceForSeminarWithServerIndex(server_seminar_index: number) {
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+		let body = this.createFormRequest({nusp: this.NUSP, seminar_id: server_seminar_index});
+		console.log(body);
+
+		let confirmAttendanceSubject = new Subject();
+
+		this.http.post('http://207.38.82.139:8001/attendence/submit', body, {headers: headers})
+			.map(res => res.json())
+			.subscribe(data => {
+				console.log(data);
+				confirmAttendanceSubject.next(data.success);
+			});
+
+		return confirmAttendanceSubject;
+	}
+
+
+	//TODO: We should still get the names of the students!
+	getListOfAttendeesOfSeminarWithServerIndex(server_seminar_index: number) {
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+		let body = this.createFormRequest({seminar_id: server_seminar_index});
+		console.log(body);
+
+		let confirmAttendanceSubject = new Subject();
+
+		this.http.post('http://207.38.82.139:8001/attendence/listStudents', body, {headers: headers})
+			.map(res => res.json())
+			.subscribe(data => {
+				console.log(data);
+				confirmAttendanceSubject.next(data.success);
+			});
+
+		return confirmAttendanceSubject;
+	}
+
+	logout() {
+		this.userKind = -1;
+		this.NUSP = -1;
+		//This helps subscribers to this Subject know that this is not
+		//a failed login attempt, but simply a logout operation
+		this.authChangeSubject.next(-2);
+	}
 }

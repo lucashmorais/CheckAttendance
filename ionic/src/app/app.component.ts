@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController, MenuController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { AuthService } from "../services/auth";
-import firebase from 'firebase';
 
 import { TabsPage } from "../pages/tabs/tabs";
 import { SigninPage } from "../pages/signin/signin";
@@ -33,16 +31,9 @@ export class MyApp {
 
     constructor(platform: Platform,
         private menuCtrl: MenuController,
-        private authService: AuthService,
         private wservice: WebService,
         private statusbar: StatusBar,
         private splashscreen: SplashScreen) {
-
-        firebase.initializeApp
-        ({
-            apiKey: "AIzaSyCNUczHXC0NtHjEUsOVpJrNWJqGNPLdHDk",
-            authDomain: "ionic2-recipebook-80089.firebaseapp.com"
-        });
 
         wservice.authChangeSubject
             .subscribe
